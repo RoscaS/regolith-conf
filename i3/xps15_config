@@ -1,0 +1,468 @@
+#####################################################################################################################
+#################                          Variables                                                #################
+#####################################################################################################################
+
+# Set Super key
+set $mod Mod4
+set $alt Mod1
+
+# Workspaces
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+set $ws11 "11"
+set $ws12 "12"
+
+set $ws13 "13"
+
+#####################################################################################################################
+#################                                  Settings                                         #################
+#####################################################################################################################
+
+# Font for window titles. Will also be used by the bar unless a different font
+font pango:Noto Mono Regular 13
+focus_follows_mouse no
+
+#########################################################
+#################        Colours        #################
+#########################################################
+
+# class                 border  backgr. text    indicator child_border
+client.focused          #F92A82 #F92A82 #F92A82 #F92A82   #F92A82
+client.focused_inactive #333333 #5f676a #ffffff #484e50   #5f676a
+client.unfocused        #444444 #444444 #888888 #444444   #444444
+client.urgent           #2f343a #900000 #ffffff #900000   #900000
+client.placeholder      #ffffff #ffffff #ffffff #ffffff   #ffffff
+client.background       #ffffff
+
+
+#########################################################
+#################          i3 gaps      #################
+#########################################################
+# https://github.com/Airblader/i3/tree/gaps-next
+
+gaps inner 2
+gaps outer 1
+#smart_gaps on
+#smart_borders on
+`
+# Global window border size
+for_window [class="^.*"] border pixel 1
+# Specific windows border size
+for_window [class="Ulauncher"] border pixel 0
+for_window [class="Google-chrome"] border pixel 2
+
+#########################################################
+############# Floating or tiled white lists #############
+#########################################################
+
+#floating enabled from some programs - find with xprop
+
+# for_window [class="Google-chrome"] floating enable
+
+#####################################################################################################################
+#################                          Workspaces binding                                       #################
+#####################################################################################################################
+
+workspace $ws1 output DP-0
+workspace $ws2 output DP-0
+workspace $ws3 output DP-0
+workspace $ws4 output DP-0
+workspace $ws5 output DP-0
+workspace $ws13 output HDMI-0
+
+# workspace $ws1 output eDP-1-3
+# workspace $ws2 output eDP-1-3
+# workspace $ws3 output eDP-1-3
+# workspace $ws4 output eDP-1-3
+# workspace $ws5 output eDP-1-3
+workspace $ws6 output HDMI-1
+workspace $ws7 output HDMI-1
+workspace $ws8 output HDMI-1
+workspace $ws9 output HDMI-1
+# workspace $ws13 output DP-1-1
+
+# workspace $ws1 output eDP-1-1
+# workspace $ws2 output eDP-1-1
+# workspace $ws3 output eDP-1-1
+# workspace $ws4 output eDP-1-1
+# workspace $ws5 output eDP-1-1
+# workspace $ws6 output DP-1-1
+# workspace $ws7 output DP-1-1
+# workspace $ws8 output DP-1-1
+# workspace $ws9 output DP-1-1
+
+#####################################################################################################################
+#################                          Modes                                                    #################
+#####################################################################################################################
+
+#########################################################
+#################         System        #################
+#########################################################
+
+set $mode_system System (k) lock, (l) logout, (u) suspend, (h) hibernate, (r) reboot, (s) shutdown
+mode "$mode_system" {
+    bindsym k exec --no-startup-id ~/.config/i3/scripts/i3exit.sh lock, mode "default"
+    bindsym l exec --no-startup-id ~/.config/i3/scripts/i3exit.sh logout, mode "default"
+    bindsym u exec --no-startup-id ~/.config/i3/scripts/i3exit.sh suspend, mode "default"
+    bindsym h exec --no-startup-id ~/.config/i3/scripts/i3exit.sh hibernate, mode "default"
+    bindsym r exec --no-startup-id ~/.config/i3/scripts/i3exit.sh reboot, mode "default"
+    bindsym s exec --no-startup-id ~/.config/i3/scripts/i3exit.sh shutdown, mode "default"
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym control+mod1+Delete mode "$mode_system"
+
+#########################################################
+#################          Resize       #################
+#########################################################
+
+mode "resize" {
+        bindsym Up          resize shrink height 5 px or 5 ppt
+        bindsym Left        resize shrink width 5 px or 5 ppt
+        bindsym Down        resize grow height 5 px or 5 ppt
+        bindsym Right       resize grow width 5 px or 5 ppt
+
+        bindsym w          resize shrink height 5 px or 5 ppt
+        bindsym a        resize shrink width 5 px or 5 ppt
+        bindsym s        resize grow height 5 px or 5 ppt
+        bindsym d       resize grow width 5 px or 5 ppt
+
+        bindsym Shift+w          resize shrink height 1 px or 1 ppt
+        bindsym Shift+a        resize shrink width 1 px or 1 ppt
+        bindsym Shift+s        resize grow height 1 px or 1 ppt
+        bindsym Shift+d       resize grow width 1 px or 1 ppt
+
+        bindsym Shift+Up          resize shrink height 1 px or 1 ppt
+        bindsym Shift+Left        resize shrink width 1 px or 1 ppt
+        bindsym Shift+Down        resize grow height 1 px or 1 ppt
+        bindsym Shift+Right       resize grow width 1 px or 1 ppt
+
+        bindsym Ctrl+w          resize shrink height 10 px or 10 ppt
+        bindsym Ctrl+a        resize shrink width 10 px or 10 ppt
+        bindsym Ctrl+s        resize grow height 10 px or 10 ppt
+        bindsym Ctrl+d       resize grow width 10 px or 10 ppt
+
+        bindsym Ctrl+Up          resize shrink height 10 px or 10 ppt
+        bindsym Ctrl+Left        resize shrink width 10 px or 10 ppt
+        bindsym Ctrl+Down        resize grow height 10 px or 10 ppt
+        bindsym Ctrl+Right       resize grow width 10 px or 10 ppt
+
+
+
+        #### Convenient to have it here too ###
+        # move focus
+        bindsym $alt+w focus up
+        bindsym $alt+a focus left
+        bindsym $alt+s focus down
+        bindsym $alt+d focus right
+
+        bindsym $mod+Up focus up
+        bindsym $mod+Left focus left
+        bindsym $mod+Down focus down
+        bindsym $mod+Right focus right
+
+        # move focused window
+        bindsym $mod+w move up
+        bindsym $mod+a move left
+        bindsym $mod+s move down
+        bindsym $mod+d move right
+
+        bindsym $mod+Shift+Up move up
+        bindsym $mod+Shift+Left move left
+        bindsym $mod+Shift+Down move down
+        bindsym $mod+Shift+Right move right
+
+        # back to normal: Enter or Escape
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+#########################################################
+#################          Gaps         #################
+#########################################################
+
+set $mode_gaps Gaps: (o) outer, (i) inner
+set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
+set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
+bindsym $mod+Shift+g mode "$mode_gaps"
+
+mode "$mode_gaps" {
+        bindsym o      mode "$mode_gaps_outer"
+        bindsym i      mode "$mode_gaps_inner"
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+mode "$mode_gaps_inner" {
+        bindsym plus  gaps inner current plus 1
+        bindsym minus gaps inner current minus 1
+        bindsym 0     gaps inner current set 0
+
+        bindsym Shift+plus  gaps inner all plus 1
+        bindsym Shift+minus gaps inner all minus 1
+        bindsym Shift+0     gaps inner all set 0
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_outer" {
+        bindsym plus  gaps outer current plus 1
+        bindsym minus gaps outer current minus 1
+        bindsym 0     gaps outer current set 0
+
+        bindsym Shift+plus  gaps outer all plus 1
+        bindsym Shift+minus gaps outer all minus 1
+        bindsym Shift+0     gaps outer all set 0
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+
+
+#####################################################################################################################
+#################                         Action                                                    #################
+#####################################################################################################################
+
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+
+
+
+# kill focused window
+bindsym $mod+q kill
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# mouse resize window
+bindsym $mod+r mode "resize"
+
+
+#########################################################
+#############        Audio control          #############
+#########################################################
+
+bindsym XF86AudioRaiseVolume exec --no-startup-id "amixer -D pulse sset Master '5%+'"
+bindsym XF86AudioLowerVolume exec --no-startup-id "amixer -D pulse sset Master '5%-'"
+bindsym XF86AudioMute exec --no-startup-id "amixer -D pulse set Master toggle"
+#https://github.com/acrisci/playerctl/
+bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
+bindsym XF86AudioNext exec --no-startup-id playerctl next
+bindsym XF86AudioPrev exec --no-startup-id playerctl previous
+bindsym XF86AudioStop exec --no-startup-id playerctl stop
+#bindsym XF86AudioPlay exec --no-startup-id "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause"
+#bindsym XF86AudioNext exec --no-startup-id "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next"
+#bindsym XF86AudioPrev exec --no-startup-id "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous"
+#bindsym XF86AudioStop exec --no-startup-id "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Stop"
+
+#########################################################
+#############           xbacklight          #############
+#########################################################
+
+bindsym XF86MonBrightnessUp exec light -A 5
+bindsym XF86MonBrightnessDown exec light -U 5
+
+#########################################################
+#############          printScreen          #############
+#########################################################
+
+bindsym Ctrl+Print exec  maim -s --format=png /dev/stdout | tee ~/Downloads/last_screen.png | xclip -selection clipboard -t image/png -i # Print screen selection
+bindsym Shift+Print exec  maim --format=png /dev/stdout | tee ~/Downloads/last_screen.png | xclip -selection clipboard -t image/png -i # Print screen all monitor
+
+#########################################################
+#############              tilix            #############
+#########################################################
+
+bindsym $mod+Return exec --no-startup-id tilix
+bindsym $alt+q exec --no-startup-id "tilix --quake --session /home/sol/Documents/Config/Tilix/Tilix_layouts/quake-layout.json"
+
+#####################################################################################################################
+#################                                     Moving                                        #################
+#####################################################################################################################
+
+#########################################################
+#############         To Workspace          #############
+#########################################################
+
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+F1 workspace $ws6
+bindsym $mod+F2 workspace $ws7
+bindsym $mod+F3 workspace $ws8
+bindsym $mod+F4 workspace $ws9
+bindsym $mod+F5 workspace $ws10
+bindsym $mod+F10 workspace $ws11
+bindsym $mod+F11 workspace $ws12
+bindsym $mod+grave workspace $ws13
+
+#########################################################
+#############            Focus              #############
+#########################################################
+
+bindsym $alt+w focus up
+bindsym $alt+a focus left
+bindsym $alt+s focus down
+bindsym $alt+d focus right
+
+# alt
+bindsym $mod+Up focus up
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Right focus right
+
+#########################################################
+#############       Around Workspaces       #############
+#########################################################
+#navigate workspaces next / previous / back and forth
+bindsym $alt+Tab workspace next
+bindsym $alt+Shift+Tab workspace prev
+bindsym $mod+Tab workspace back_and_forth
+
+# switch to workspace with urgent window automatically
+for_window [urgent=latest] focus
+
+#########################################################
+#############       Focused Window          #############
+#########################################################
+# move focused window
+bindsym $mod+w move up
+bindsym $mod+a move left
+bindsym $mod+s move down
+bindsym $mod+d move right
+
+# alt
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Right move right
+
+#########################################################
+############# Focused Window To Workspace   #############
+#########################################################
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+F1 move container to workspace $ws6
+bindsym $mod+Shift+F2 move container to workspace $ws7
+bindsym $mod+Shift+F3 move container to workspace $ws8
+bindsym $mod+Shift+F4 move container to workspace $ws9
+bindsym $mod+Shift+F5 move container to workspace $ws10
+bindsym $mod+Shift+F10 move container to workspace $ws11
+bindsym $mod+Shift+F11 move container to workspace $ws12
+bindsym $mod+Shift+grave move container to workspace $ws13
+
+#####################################################################################################################
+#################                          Tiling parameters                                        #################
+#####################################################################################################################
+
+# orientation for new workspaces
+default_orientation horizontal
+
+# split in horizontal orientation
+bindsym $mod+h split h
+
+# split in vertical orientation
+bindsym $mod+v split v
+
+# enter fullscreen mode for the focused container
+# Super + F in arcolinux is execute thunar
+bindsym $mod+f fullscreen toggle
+
+# change container layout (stacked, tabbed, toggle split)
+# bindsym $mod+s layout stacking
+# bindsym $mod+z layout tabbed
+# bindsym $mod+e layout toggle split
+
+
+# change focus between tiling / floating windows
+# bindsym $mod+space focus mode_toggle
+
+# focus the parent container
+# bindsym $mod+a focus parent
+
+# focus the child container
+#bindsym $mod+d focus child
+
+#####################################################################################################################
+#################                          tray                                               #################
+#####################################################################################################################
+
+# Shortuct wifi in tray
+exec --no-startup-id nm-applet
+exec --no-startup-id /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
+exec --no-startup-id pasystray
+
+
+
+#####################################################################################################################
+#################                                EXEC                                               #################
+#####################################################################################################################
+
+#########################################################
+#############       Startup only            #############
+#########################################################
+
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+exec --no-startup-id ulauncher
+
+exec --no-startup-id sleep .4; killall compton; sleep .1; compton --config ~/.config/i3/compton.conf;
+exec --no-startup-id "sh -c 'sleep .6; feh --bg-fill ~/Pictures/4k-Abstract.jpg'"
+exec --no-startup-id "sh -c 'sleep .6; exec ~/.config/polybar/launch.sh &'"
+
+
+#########################################################
+#############       Startup + reload        #############
+#########################################################
+
+exec_always --no-startup-id "sh /usr/local/bin/accents.sh"
+exec_always --no-startup-id xmodmap ~/.Xmodmap;
+
+exec_always --no-startup-id xrdb .Xressources
+exec_always --no-startup-id "sh -c 'exec ~/.config/polybar/launch.sh &'"
+exec_always --no-startup-id autorandr --change
+exec_always --no-startup-id killall compton; sleep .1; compton --config ~/.config/i3/compton.conf;
+exec_always --no-startup-id "sh -c 'sleep .5; feh --bg-fill ~/Pictures/4k-Abstract.jpg'"
+
+
+
+### ~/.xmodmap content ###
+
+# clear lock
+# clear control
+# keycode 66 = Control_L
+# add control = Control_L Control_R
+
+# remove Mod1 = Alt_R
+# keycode 108 = Alt_R
+
+
+
+
+
+
+
+
+
+
